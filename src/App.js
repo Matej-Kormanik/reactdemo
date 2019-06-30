@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import './App.css';
 import Person from './Person/Person';
+import Radium, {StyleRoot} from 'radium';
 
 
 class App extends Component{
@@ -39,11 +40,12 @@ class App extends Component{
 
     render() {
         const buttonStyle = {
-            backgroundColor: 'white',
+            backgroundColor: 'green',
+            color: 'white',
             font: 'inherit',
             border: '1px solid blue',
             padding: '8px',
-            cursor: 'pointer'
+            cursor: 'pointer',
         };
 
         let persons = null;
@@ -58,17 +60,27 @@ class App extends Component{
                             key={aPerson.id} />
                 })}
             </div>);
+            buttonStyle.backgroundColor = 'red';
         }
 
 
+        let classes = []; // red bold
+        if (this.state.persons.length <= 2) {
+            classes.push('red');
+        }
+        if (this.state.persons.length <= 1) {
+            classes.push('bold');
+        }
+
         return (
-            <div className="App">
-                <h1>Ahoj</h1>
-                <button
-                    onClick={this.togglePersonsHandler}
-                    style={buttonStyle}>switch users</button>
-                {persons}
-            </div>
+                <div className="App">
+                    <h1>Hi, I am react app</h1>
+                    <p className={classes.join(' ')}>this is really working</p>
+                    <button
+                        onClick={this.togglePersonsHandler}
+                        style={buttonStyle}>switch users</button>
+                    {persons}
+                </div>
         );
     }
 
